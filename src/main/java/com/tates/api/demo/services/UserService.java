@@ -1,5 +1,6 @@
 package com.tates.api.demo.services;
 
+import com.auth0.jwt.algorithms.Algorithm;
 import com.tates.api.demo.comparators.EntityNameComparator;
 import com.tates.api.demo.comparators.FoodIdComparator;
 import com.tates.api.demo.comparators.UserIdComparator;
@@ -13,13 +14,13 @@ import com.tates.api.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.auth0.jwt.JWT;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static org.springframework.security.config.Elements.JWT;
 
 @Service
 public class UserService {
@@ -44,7 +45,13 @@ public class UserService {
     // Lecture de données
     // Recuperer tous les utilisateurs de la bd
     public List<User> getUsers(Optional<Boolean> sortByName){
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAll();/*
+        String token = com.auth0.jwt.JWT.create()
+                .withSubject("tountoun")
+                .withIssuer("Till tates")
+                .withExpiresAt(new Date(System.currentTimeMillis() + 10*60*1000))
+                .sign(Algorithm.HMAC256("hgjhoigh".getBytes()));
+        System.out.println("Generated token: "+token);*/
         if(sortByName.isPresent() && sortByName.get() == true){
                 Collections.sort(users, new EntityNameComparator<User>());
         }else{
