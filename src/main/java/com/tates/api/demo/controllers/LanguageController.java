@@ -25,6 +25,7 @@ public class LanguageController {
             ){
         return languageService.getLanguages(sortedByName);
     }
+    /*
     @GetMapping("/{id}/users")
     public ResponseEntity<Object> getLanguageUsers(
             @PathVariable(value = "id") Integer languageId
@@ -44,7 +45,7 @@ public class LanguageController {
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-    }
+    }*/
     @GetMapping("/id/{id}")
     public ResponseEntity<Object> getLanguageById(
             @PathVariable(value = "id") Integer id

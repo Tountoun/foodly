@@ -42,7 +42,6 @@ public class Food {
     @JoinColumn(
             name = "fam_id"
     )
-    @JsonIgnore
     private Family family;
 
     @ManyToMany(

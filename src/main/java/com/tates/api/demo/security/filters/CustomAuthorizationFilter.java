@@ -31,7 +31,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //Cas où le client veut se loguer et avoir un token ou refresh token
-        if(request.getServletPath().equals("/api/v1/login/tokens")  || request.getServletPath().equals("/api/v1/login/refresh_token")){
+        if(request.getServletPath().startsWith("/api/v1/login/create")  || request.getServletPath().equals("/api/v1/login/refresh_token")){
             filterChain.doFilter(request, response);
         }else {
             //Sinon la requête doit inclure dans le header un token

@@ -50,7 +50,7 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @GetMapping("/{id}/foods")
+  /*  @GetMapping("/{id}/foods")
     public ResponseEntity<Object> getUserFoods(
             @PathVariable(value = "id") Integer id
     ){
@@ -69,7 +69,7 @@ public class UserController {
         }catch (EntityNotFoundException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-    }
+    }*/
     @PostMapping("/id")
     @Transactional
     public ResponseEntity<Object> postUser(
@@ -77,18 +77,37 @@ public class UserController {
     ){
         try{
             return ResponseEntity.ok().body(userService.saveUser(userRequestBody));
-
         }catch (EntityExistsException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    @PostMapping("")
+    public ResponseEntity<?> postUsers(
+            @RequestBody List<User> users
+    )
+    {
+        try{
+            return ResponseEntity.ok(userService.addUsers(users));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     @PutMapping("/id")
     public ResponseEntity<Object> updateUser(
             @RequestBody UserRequestBody userRequestBody
     ){
         try{
             return ResponseEntity.ok().body(userService.updateUser(userRequestBody));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @PutMapping("")
+    public ResponseEntity<Object> updateUsers(
+            @RequestBody List<UserRequestBody> userRequestBodyList
+    ){
+        try{
+            return ResponseEntity.ok().body(userService.updateUsers(userRequestBodyList));
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

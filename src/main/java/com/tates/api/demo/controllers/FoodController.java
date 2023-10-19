@@ -44,6 +44,7 @@ public class FoodController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    /*
     @GetMapping("/{id}/users")
     public ResponseEntity<Object> getFoodUsers(
             @PathVariable(value = "id") Integer id
@@ -84,6 +85,7 @@ public class FoodController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    */
     @PostMapping("/id")
     public ResponseEntity<Object> postFood(
             @RequestBody FoodRequestBody foodRequestBody

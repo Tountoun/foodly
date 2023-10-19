@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
@@ -104,7 +106,8 @@ public class UserService {
         );
         Language language = languageService.getLanguage(userRequestBody.getLanguage().getId());
         // Si l'utilisateur a une liste d'aliments, on ajoute l'utilisateur à la liste des users de ces aliments
-        if(!userRequestBody.getFoods().isEmpty()){
+        List<Food> foodList = userRequestBody.getFoods() == null? new ArrayList<>(): userRequestBody.getFoods();
+        if(!foodList.isEmpty()){
             List<Integer> ids = new ArrayList<>();
             userRequestBody.getFoods().forEach(
                     food -> {
@@ -201,6 +204,16 @@ public class UserService {
         }
 
         return userRepository.save(userWithSameId);
+    }
+    @Transactional
+    public List<User> updateUsers(List<UserRequestBody> users){
+        List<User> updated = new ArrayList<>();
+        try{
+            users.stream().forEach(userRequestBody -> updated.add(updateUser(userRequestBody)));
+        }catch (EntityNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        return updated;
     }
     // Mise à jour de données
       /*

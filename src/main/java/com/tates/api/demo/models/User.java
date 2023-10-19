@@ -30,7 +30,7 @@ public class User {
             cascade = CascadeType.ALL
     )
     @JoinColumn(name = "lang_id") // La clé etrangère dans l'entité user
-    @JsonIgnore
+    //@JsonIgnore
     private Language language;
 
     @ManyToMany(
@@ -45,7 +45,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "food_id")
     )
-    @JsonIgnore
+    //@JsonIgnore
    private List<Food> foods = new ArrayList<>();
 
     public User(String name, String email) {

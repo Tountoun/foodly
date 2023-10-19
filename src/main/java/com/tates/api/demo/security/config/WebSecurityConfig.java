@@ -55,14 +55,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/api/v1/login/tokens/**", "/api/v1/login/refresh_token/**").permitAll()
+                .antMatchers("/api/v1/login/create/**", "/api/v1/login/refresh_token/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.POST, "/api/v1/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/v1/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/v1/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new CustomAuthenticationFilter("/api/v1/login/tokens", authenticationManagerBean()))
+                .addFilter(new CustomAuthenticationFilter("/api/v1/login/create", authenticationManagerBean()))
                 .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 //.addFilterBefore(new JWTLoginFilter("api/v1/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
                ;// .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

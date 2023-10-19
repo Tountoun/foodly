@@ -76,6 +76,7 @@ public class LoginController {
     @PostMapping("create/{username}/{password}/{role}")
     public ResponseEntity<String> login(@PathVariable(name = "username") String username,
                                         @PathVariable(name = "password") String password){
+        System.out.println("Hello");
         UserDetails userDetails = inMemoryUserDetailsManager.loadUserByUsername(username);
         System.out.println("ok");
         if(userDetails == null){
